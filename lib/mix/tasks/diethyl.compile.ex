@@ -21,7 +21,8 @@ defmodule Mix.Tasks.Diethyl.Compile do
 
   defp compile_presentation_exs do
     # generate pub/index.html
-    File.touch("pub/index.html") # TODO
+    {slides, _} = Code.eval_file("src/presentation.exs")
+    File.write!("pub/index.html", Enum.join(slides, "\n"))
   end
 
   defp generate_base_js do

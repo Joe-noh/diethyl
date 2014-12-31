@@ -21,4 +21,12 @@ defmodule InitTaskTest do
     ["lib", "test"]
     |> Enum.each(& refute(File.exists? &1))
   end
+
+  test "src/presentation.exs does not have indents", context do
+    File.cd! context.tmp_dir
+
+    File.read!("src/presentation.exs")
+    |> String.starts_with?(" ")
+    |> refute
+  end
 end
