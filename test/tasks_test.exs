@@ -1,5 +1,5 @@
 defmodule TasksTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
   import ExUnit.CaptureIO
 
   test "mix help shows diethyl tasks" do

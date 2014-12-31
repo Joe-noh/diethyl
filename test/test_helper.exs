@@ -6,7 +6,7 @@ defmodule TestHelper do
   @sample_project_path Path.join([@project_path, "test", "sample_project"])
 
   def prepare_test_project do
-    tmp_dir = System.tmp_dir!
+    tmp_dir = Path.join([System.tmp_dir!, "sample_project"])
     File.cp_r!(@sample_project_path, tmp_dir)
 
     tmp_mix_exs = Path.join([tmp_dir, "mix.exs"])
