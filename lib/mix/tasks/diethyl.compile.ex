@@ -22,7 +22,8 @@ defmodule Mix.Tasks.Diethyl.Compile do
   defp compile_presentation_exs do
     # generate pub/index.html
     {slides, _} = Code.eval_file("src/presentation.exs")
-    File.write!("pub/index.html", Enum.join(slides, "\n"))
+    body = Enum.join(slides, "\n")
+    File.write!("pub/index.html", outline_layout(body))
   end
 
   defp generate_base_js do
@@ -45,11 +46,11 @@ defmodule Mix.Tasks.Diethyl.Compile do
 
     # TODO
     File.touch("pub/css/theme.css")
-    # File.write!("pub/css/theme.css", theme.css_content)
+    # File.write!("pub/css/theme.css", apply(theme, :css_content, []))
   end
 
-  defp outline_layout do
-    """
+  defp outline_layout(body) do
+    layout = """
     <!DOCTYPE html>
     <html>
       <head>
@@ -69,6 +70,8 @@ defmodule Mix.Tasks.Diethyl.Compile do
       </body>
     </html>
     """
+
+    EEx.eval_string layout, body: body
   end
 
   defp highlight_css_path do
